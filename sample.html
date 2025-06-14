@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spanish Latte Jewelry Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .ring-image {
+            width: 100%;
+            height: 120px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .ring-image::after {
+            content: '💍';
+            font-size: 48px;
+            opacity: 0.3;
+        }
+
+        .product-label {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        .view-all {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .view-all-btn {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .view-all-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 60px;
+            padding: 60px 0;
+        }
+
+        .hero-images {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-content {
+            padding: 20px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .feature-text {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .testimonial-section {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin-top: 60px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin-top: 60px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,255,255,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Product Grid -->
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="ring-image"></div>
+                <div class="product-label">
+                    Spanish Latte
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="ring-image"></div>
+                <div class="product-label">
+                    Spanish Latte
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="ring-image"></div>
+                <div class="product-label">
+                    Spanish Latte
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="ring-image"></div>
+                <div class="product-label">
+                    Spanish Latte
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="ring-image"></div>
+                <div class="product-label">
+                    Spanish Latte
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="ring-image"></div>
+                <div class="product-label">
+                    Spanish Latte
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="ring-image"></div>
+                <div class="product-label">
+                    Spanish Latte
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="ring-image"></div>
+                <div class="product-label">
+                    Spanish Latte
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Button -->
+        <div class="view-all">
+            <button class="view-all-btn">View All ↓</button>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-images">
+                <div class="hero-image"></div>
+                <div class="hero-image"></div>
+                <div class="hero-image"></div>
+            </div>
+            <div class="hero-content">
+                <h2 class="hero-title">Jewelry should do more than decorate</h2>
+                <p class="hero-subtitle">It should empower, uplift, and tell a story. That's why we carefully design each piece to reflect authenticity, beauty, and confidence. Let our collection become part of your everyday elegance.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">✨</div>
+                        <h3 class="feature-title">Handcrafted Excellence</h3>
+                        <p class="feature-text">Each piece is meticulously crafted by skilled artisans with attention to every detail.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💎</div>
+                        <h3 class="feature-title">Premium Materials</h3>
+                        <p class="feature-text">We use only the finest metals and genuine gemstones for lasting beauty and durability.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌟</div>
+                        <h3 class="feature-title">Timeless Design</h3>
+                        <p class="feature-text">Our designs transcend trends, creating pieces you'll treasure for generations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonial Section -->
+        <div class="testimonial-section">
+            <p class="testimonial-quote">"Every piece tells a story of elegance and sophistication. The Spanish Latte collection has become an essential part of my daily style."</p>
+            <p class="testimonial-author">— Maria Elena, Fashion Designer</p>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2 class="cta-title">Discover Your Perfect Piece</h2>
+            <p class="cta-text">Join thousands of satisfied customers who've found their signature style with our collection.</p>
+            <button class="cta-button">Shop Now</button>
+        </div>
+    </div>
+</body>
+</html>

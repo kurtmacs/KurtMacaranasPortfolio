@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFS Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f8ff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .graph-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        svg {
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: white;
+        }
+        .node {
+            stroke: #333;
+            stroke-width: 2;
+            cursor: pointer;
+        }
+        .node.start {
+            fill: #FFD700;
+            stroke: #FF8C00;
+            stroke-width: 3;
+        }
+        .node.visited {
+            fill: #90EE90;
+            stroke: #32CD32;
+        }
+        .node.current {
+            fill: #FF6B6B;
+            stroke: #FF0000;
+            stroke-width: 3;
+        }
+        .node.unvisited {
+            fill: #E0E0E0;
+        }
+        .edge {
+            stroke: #666;
+            stroke-width: 2;
+        }
+        .edge.traversed {
+            stroke: #FF4500;
+            stroke-width: 4;
+            animation: pulse 1s ease-in-out;
+        }
+        .edge.active {
+            stroke: #FF0000;
+            stroke-width: 4;
+            animation: pulse 0.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        .text {
+            font-size: 18px;
+            font-weight: bold;
+            text-anchor: middle;
+            dominant-baseline: central;
+            pointer-events: none;
+        }
+        .info-panel {
+            background-color: white;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .queue {
+            background-color: #E6F3FF;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .step-info {
+            background-color: #F0F8E6;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .edges-list {
+            background-color: #FFF0E6;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #FF4500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; color: #333;">BFS Algorithm Visualization</h1>
+        
+        <div class="controls">
+            <button id="startBtn" onclick="startBFS()">Start BFS</button>
+            <button id="nextBtn" onclick="nextStep()" disabled>Next Step</button>
+            <button id="resetBtn" onclick="resetGraph()">Reset</button>
+            <button id="autoBtn" onclick="autoPlay()">Auto Play</button>
+        </div>
+
+        <div class="graph-container">
+            <svg width="600" height="400" id="graph">
+                <!-- Edges -->
+                <line x1="450" y1="80" x2="300" y2="200" class="edge" id="edge-A-F"/>
+                <line x1="450" y1="80" x2="150" y2="80" class="edge" id="edge-A-G"/>
+                <line x1="300" y1="200" x2="150" y2="80" class="edge" id="edge-F-G"/>
+                <line x1="300" y1="200" x2="400" y2="320" class="edge" id="edge-F-B"/>
+                <line x1="300" y1="200" x2="500" y2="280" class="edge" id="edge-F-C"/>
+                <line x1="300" y1="200" x2="200" y2="320" class="edge" id="edge-F-E"/>
+                <line x1="400" y1="320" x2="500" y2="280" class="edge" id="edge-B-C"/>
+                <line x1="400" y1="320" x2="200" y2="320" class="edge" id="edge-B-E"/>
+                <line x1="200" y1="320" x2="100" y2="380" class="edge" id="edge-E-D"/>
+                
+                <!-- Nodes -->
+                <circle cx="450" cy="80" r="25" class="node start" id="node-A"/>
+                <circle cx="400" cy="320" r="25" class="node unvisited" id="node-B"/>
+                <circle cx="500" cy="280" r="25" class="node unvisited" id="node-C"/>
+                <circle cx="100" cy="380" r="25" class="node unvisited" id="node-D"/>
+                <circle cx="200" cy="320" r="25" class="node unvisited" id="node-E"/>
+                <circle cx="300" cy="200" r="25" class="node unvisited" id="node-F"/>
+                <circle cx="150" cy="80" r="25" class="node unvisited" id="node-G"/>
+                
+                <!-- Labels -->
+                <text x="450" y="80" class="text">A</text>
+                <text x="400" y="320" class="text">B</text>
+                <text x="500" y="280" class="text">C</text>
+                <text x="100" y="380" class="text">D</text>
+                <text x="200" y="320" class="text">E</text>
+                <text x="300" y="200" class="text">F</text>
+                <text x="150" y="80" class="text">G</text>
+            </svg>
+        </div>
+
+        <div class="info-panel">
+            <div class="step-info">
+                <h3>Current Step: <span id="stepNumber">0</span></h3>
+                <p id="stepDescription">Click 'Start BFS' to begin the algorithm</p>
+            </div>
+            
+            <div class="queue">
+                <h3>Queue Status:</h3>
+                <p id="queueStatus">Queue: []</p>
+            </div>
+            
+            <div class="edges-list">
+                <h3>Edges Traversed (in order):</h3>
+                <ol id="edgesList"></ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Graph representation
+        const graph = {
+            'A': ['F', 'G'],
+            'B': ['C', 'E', 'F'],
+            'C': ['B', 'F'],
+            'D': ['E'],
+            'E': ['B', 'D', 'F'],
+            'F': ['A', 'B', 'C', 'E', 'G'],
+            'G': ['A', 'F']
+        };
+
+        // BFS state
+        let visited = new Set();
+        let queue = [];
+        let currentStep = 0;
+        let traversedEdges = [];
+        let isRunning = false;
+        let autoPlayInterval = null;
+
+        // BFS steps
+        const steps = [
+            { action: 'start', node: 'A', queue: ['A'], description: 'Start BFS from node A. Add A to queue.' },
+            { action: 'process', node: 'A', newNodes: ['F', 'G'], queue: ['F', 'G'], edges: ['A-F', 'A-G'], description: 'Process A: Add neighbors F and G to queue (alphabetical order)' },
+            { action: 'process', node: 'F', newNodes: ['B', 'C', 'E'], queue: ['G', 'B', 'C', 'E'], edges: ['F-B', 'F-C', 'F-E'], description: 'Process F: Add unvisited neighbors B, C, E to queue' },
+            { action: 'process', node: 'G', newNodes: [], queue: ['B', 'C', 'E'], edges: [], description: 'Process G: No new neighbors (F and A already visited)' },
+            { action: 'process', node: 'B', newNodes: [], queue: ['C', 'E'], edges: [], description: 'Process B: No new neighbors (C, E, F already visited)' },
+            { action: 'process', node: 'C', newNodes: [], queue: ['E'], edges: [], description: 'Process C: No new neighbors (B, F already visited)' },
+            { action: 'process', node: 'E', newNodes: ['D'], queue: ['D'], edges: ['E-D'], description: 'Process E: Add unvisited neighbor D to queue' },
+            { action: 'process', node: 'D', newNodes: [], queue: [], edges: [], description: 'Process D: No new neighbors (E already visited). BFS complete!' }
+        ];
+
+        function startBFS() {
+            resetGraph();
+            isRunning = true;
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('nextBtn').disabled = false;
+            currentStep = 0;
+            executeStep();
+        }
+
+        function nextStep() {
+            currentStep++;
+            if (currentStep < steps.length) {
+                executeStep();
+            } else {
+                document.getElementById('nextBtn').disabled = true;
+                isRunning = false;
+            }
+        }
+
+        function executeStep() {
+            const step = steps[currentStep];
+            
+            // Update step info
+            document.getElementById('stepNumber').textContent = currentStep + 1;
+            document.getElementById('stepDescription').textContent = step.description;
+            
+            // Process the step
+            if (step.action === 'start') {
+                queue = [step.node];
+                updateNodeVisual(step.node, 'current');
+            } else if (step.action === 'process') {
+                // Mark previous node as visited
+                if (currentStep > 0) {
+                    const prevNode = steps[currentStep - 1].node || step.node;
+                    updateNodeVisual(prevNode, 'visited');
+                }
+                
+                // Mark current node as being processed
+                updateNodeVisual(step.node, 'current');
+                visited.add(step.node);
+                
+                // Add new edges
+                step.edges.forEach(edge => {
+                    traversedEdges.push(edge);
+                    highlightEdge(edge);
+                });
+                
+                // Update queue
+                queue = [...step.queue];
+            }
+            
+            // Update queue display
+            document.getElementById('queueStatus').textContent = `Queue: [${queue.join(', ')}]`;
+            
+            // Update edges list
+            updateEdgesList();
+            
+            // Mark current node as visited after processing
+            setTimeout(() => {
+                if (step.node && step.action === 'process') {
+                    updateNodeVisual(step.node, 'visited');
+                }
+            }, 1000);
+        }
+
+        function updateNodeVisual(nodeId, state) {
+            const node = document.getElementById(`node-${nodeId}`);
+            node.className = `node ${state}`;
+        }
+
+        function highlightEdge(edgeId) {
+            const edge = document.getElementById(`edge-${edgeId}`);
+            if (edge) {
+                edge.classList.add('active');
+                setTimeout(() => {
+                    edge.classList.remove('active');
+                    edge.classList.add('traversed');
+                }, 1000);
+            }
+        }
+
+        function updateEdgesList() {
+            const edgesList = document.getElementById('edgesList');
+            edgesList.innerHTML = '';
+            traversedEdges.forEach((edge, index) => {
+                const li = document.createElement('li');
+                li.textContent = edge;
+                if (index === traversedEdges.length - 1) {
+                    li.className = 'highlight';
+                }
+                edgesList.appendChild(li);
+            });
+        }
+
+        function resetGraph() {
+            visited.clear();
+            queue = [];
+            currentStep = 0;
+            traversedEdges = [];
+            isRunning = false;
+            
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+            }
+            
+            // Reset all nodes except A
+            ['B', 'C', 'D', 'E', 'F', 'G'].forEach(node => {
+                updateNodeVisual(node, 'unvisited');
+            });
+            updateNodeVisual('A', 'start');
+            
+            // Reset all edges
+            document.querySelectorAll('.edge').forEach(edge => {
+                edge.classList.remove('traversed', 'active');
+            });
+            
+            // Reset UI
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('stepNumber').textContent = '0';
+            document.getElementById('stepDescription').textContent = "Click 'Start BFS' to begin the algorithm";
+            document.getElementById('queueStatus').textContent = 'Queue: []';
+            document.getElementById('edgesList').innerHTML = '';
+        }
+
+        function autoPlay() {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+                return;
+            }
+            
+            if (!isRunning) {
+                startBFS();
+            }
+            
+            autoPlayInterval = setInterval(() => {
+                if (currentStep < steps.length - 1) {
+                    nextStep();
+                } else {
+                    clearInterval(autoPlayInterval);
+                    autoPlayInterval = null;
+                }
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurt Baron Macaranas | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #3c3844;
+            --secondary-color: #740404;
+            --accent-color: #03103f;
+            --text-color: #1F2937;
+            --light-text: #6B7280;
+            --background: #F9FAFB;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(to right, #3c3844, #03103f);
+            color: var(--white);
+            padding: 10rem 0 5rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            width: 80%;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+            border: 5px solid var(--white);
+        }
+
+        /* About Section */
+        #about {
+            background-color: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        .about-info {
+            margin-top: 2rem;
+        }
+
+        .info-item {
+            margin-bottom: 1rem;
+        }
+
+        .info-item span {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        /* Skills Section */
+        #skills {
+            background-color: var(--background);
+        }
+
+        .skills-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-category h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .skill-item {
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        /* Projects Section */
+        #projects {
+            background-color: var(--white);
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0.5rem 0;
+        }
+
+        .project-tag {
+            background-color: #e9ecef;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            margin-top: 1rem;
+        }
+
+        .project-links a {
+            margin-right: 1rem;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .project-links a i {
+            margin-right: 0.25rem;
+        }
+
+        /* Challenges Section */
+        #challenges {
+            background-color: var(--background);
+        }
+
+        .challenges-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .challenge-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .challenge-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .challenge-card p {
+            margin-bottom: 1rem;
+        }
+
+        /* Future Plans Section */
+        #future {
+            background-color: var(--white);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--secondary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: var(--white);
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::after {
+            right: -17px;
+        }
+
+        .right::after {
+            left: -17px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Resume Section */
+        #resume {
+            background-color: var(--background);
+        }
+
+        .resume-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .resume-preview {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .resume-preview h3 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .resume-section {
+            margin-bottom: 2rem;
+        }
+
+        .resume-section h4 {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .resume-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .resume-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-item-title {
+            font-weight: 600;
+        }
+
+        .resume-item-subtitle {
+            font-style: italic;
+            color: var(--light-text);
+        }
+
+        .resume-download {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(to right, #3c3844, #740404);
+            color: var(--white);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            color: var(--white);
+            margin-bottom: 2rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-form {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-form h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1F2937;
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .footer-social {
+            margin: 1.5rem 0;
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            margin: 1.5rem 0;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .footer-copyright {
+            margin-top: 1.5rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 3rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+
+            .skills-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0;
+                height: 92vh;
+                top: 8vh;
+                background-color: var(--white);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links li {
+                margin: 2rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .skills-content,
+            .challenges-container {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .left::after, .right::after {
+                left: 15px;
+            }
+
+            .right {
+                left: 0;
+            }
+        }
+
+        .nav-active {
+            transform: translateX(0%);
+        }
+
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .toggle .line2 {
+            opacity: 0;
+        }
+
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <a href="#" class="logo">KBM</a>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+                <li><a href="#future">Future Plans</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Kurt Baron Macaranas</h1>
+                    <p>Computer Science Student | Web Developer | AI Enthusiast</p>
+                    <a href="#contact" class="btn">Get In Touch</a>
+                </div>
+                <div class="hero-image">
+                    <img src="/api/placeholder/500/500" alt="Kurt Baron Macaranas">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Hello! I'm Kurt Baron Macaranas</h3>
+                    <p>I am a passionate 3rd year Computer Science student with a keen interest in web development, artificial intelligence, and software engineering. I love solving complex problems and turning ideas into functional applications.</p>
+                    <p>I approach challenges with creativity and determination, constantly seeking to expand my knowledge and skills in the ever-evolving tech landscape. My goal is to create innovative solutions that make a positive impact on people's lives.</p>
+                    
+                    <div class="about-info">
+                        <div class="info-item">
+                            <span>Name:</span> Kurt Baron Macaranas
+                        </div>
+                        <div class="info-item">
+                            <span>Age:</span> 21 years
+                        </div>
+                        <div class="info-item">
+                            <span>Education:</span> Bachelor of Science in Computer Science (3rd Year)
+                        </div>
+                        <div class="info-item">
+                            <span>Location:</span> Philippines
+                        </div>
+                        <div class="info-item">
+                            <span>Email:</span> kurtbaron.macaranas@example.com
+                        </div>
+                    </div>
+                    
+                    <h3 class="mt-4">Family Background</h3>
+                    <p>I come from a supportive family that has always encouraged my academic pursuits and passion for technology. My father works as an engineer, which sparked my initial interest in problem-solving and technical fields. My mother, a teacher, instilled in me the value of education and continuous learning.</p>
+                    <p>Growing up with two siblings, I developed strong collaboration skills and learned the importance of communication. My family's unwavering support has been instrumental in my educational journey and personal growth.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/600/800" alt="About Kurt Baron Macaranas">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>Skills, Trainings & Certificates</h2>
+            </div>
+            <div class="skills-content">
+                <div class="skill-category">
+                    <h3>Technical Skills</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>HTML/CSS</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>JavaScript</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Python</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Java</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>SQL</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Trainings</h3>
+                    <div class="skill-item">
+                        <p><strong>Web Development Bootcamp</strong></p>
+                        <p>Completed an intensive 12-week bootcamp covering front-end and back-end technologies. Learned responsive design, JavaScript frameworks, and server-side programming.</p>
+                        <p><em>TechAcademy, 2024</em></p>
+                    </div>
+                    <div class="skill-item">
+                        <p><strong>Data Science Fundamentals</strong></p>
+                        <p>Participated in a 6-week program covering data analysis, visualization, and machine learning basics using Python and relevant libraries.</p>
+                        <p><em>DataCamp, 2023</em></p>
+                    </div>
+                    <div class="skill-item">
+                        <p><strong>UI/UX Design Workshop</strong></p>
+                        <p>Attended a 3-day intensive workshop on user interface and experience design principles, wireframing, and prototyping tools.</p>
+                        <p><em>DesignHub, 2023</em></p>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Certificates</h3>
+                    <div class="skill-item">
+                        <p><strong>AWS Certified Cloud Practitioner</strong></p>
+                        <p>Foundation-level certification demonstrating understanding of AWS Cloud services and architecture.</p>
+                        <p><em>Issued: April 2024</em></p>
+                    </div>
+                    <div class="skill-item">
+                        <p><strong>Microsoft Certified: Azure Fundamentals</strong></p>
+                        <p>Validation of basic knowledge of cloud services and Azure platform.</p>
+                        <p><em>Issued: December 2023</em></p>
+                    </div>
+                    <div class="skill-item">
+                        <p><strong>Responsive Web Design Certification</strong></p>
+                        <p>Comprehensive certification covering HTML5, CSS3, and responsive design principles.</p>
+                        <p><em>freeCodeCamp, October 2023</em></p>
+                    </div>
+                    <div class="skill-item">
+                        <p><strong>Python for Data Science</strong></p>
+                        <p>Certification for proficiency in Python programming for data analysis and visualization.</p>
+                        <p><em>Coursera, July 2023</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Projects</h2>
+            </div>
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/api/placeholder/600/400" alt="E-Learning Platform">
+                    </div>
+                    <div class="project-info">
+                        <h3>E-Learning Platform</h3>
+                        <p>A comprehensive online learning platform with course management, student progress tracking, and interactive quizzes. Built with a focus on user experience and accessibility.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">MongoDB</span>
+                            <span class="project-tag">Express</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/api/placeholder/600/400" alt="Smart Home Automation">
+                    </div>
+                    <div class="project-info">
+                        <h3>Smart Home Automation System</h3>
+                        <p>IoT-based home automation system that allows users to control home appliances remotely. Features include scheduling, voice commands, and energy usage monitoring.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Raspberry Pi</span>
+                            <span class="project-tag">Flask</span>
+                            <span class="project-tag">MQTT</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> Demo Video</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/api/placeholder/600/400" alt="Health Tracker App">
+                    </div>
+                    <div class="project-info">
+                        <h3>Health Tracker Mobile App</h3>
+                        <p>A mobile application that helps users track their fitness goals, nutrition intake, and sleep patterns. Includes data visualization and personalized recommendations.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">React Native</span>
+                            <span class="project-tag">Firebase</span>
+                            <span class="project-tag">Redux</span>
+                            <span class="project-tag">D3.js</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> App Store</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/api/placeholder/600/400" alt="AI Chatbot">
+                    </div>
+                    <div class="project-info">
+                        <h3>AI-Powered Academic Chatbot</h3>
+                        <p>An intelligent chatbot designed to assist students with course-related queries, scheduling, and resource recommendations using natural language processing.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">NLP</span>
+                            <span class="project-tag">TensorFlow</span>
+                            <span class="project-tag">Flask</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges & Learnings Section -->
+    <section id="challenges">
+        <div class="container">
+            <div class="section-title">
+                <h2>Challenges & Learnings</h2>
+            </div>
+            <div class="challenges-container">
+                <div class="challenge-card">
+                    <h3>Time Management</h3>
+                    <p>One of the biggest challenges I've faced as a student is balancing academic responsibilities with personal projects and skill development. The computer science curriculum is demanding, requiring significant time for coursework, projects, and exam preparation.</p>
+                    <p><strong>What I've Learned:</strong> I've developed effective time management strategies, including the Pomodoro Technique, prioritization methods, and creating realistic schedules. These approaches have helped me maintain a healthy balance while still pursuing my interests outside of formal education.</p>
+                </div>
+                
+                <div class="challenge-card">
+                    <h3>Technical Learning Curve</h3>
+                    <p>The rapidly evolving tech landscape presents a steep learning curve. Keeping up with new frameworks, languages, and best practices while mastering fundamental concepts has been challenging.</p>
+                    <p><strong>What I've Learned:</strong> I've discovered the importance of building strong foundations rather than chasing every new technology. Understanding core programming principles and computer science concepts enables me to adapt to new tools more efficiently. I've also developed a personal learning system that includes dedicated time for exploration and experimentation.</p>
+                </div>
+                
+                <div class="challenge-card">
+                    <h3>Project Complexity</h3>
+                    <p>As my skills advanced, so did the complexity of my projects. Managing larger codebases, integrating multiple technologies, and ensuring scalability presented significant challenges.</p>
+                    <p><strong>What I've Learned:</strong> Breaking down complex problems into smaller, manageable components is essential. I've embraced agile methodologies, version control practices, and documentation habits that make complex projects more approachable. Collaboration with peers has also provided valuable perspectives and solutions.</p>
+                </div>
+                
+                <div class="challenge-card">
+                    <h3>Public Speaking and Presentations</h3>
+                    <p>Presenting technical concepts clearly and confidently during class presentations and hackathons was initially outside my comfort zone.</p>
+                    <p><strong>What I've Learned:</strong> Regular practice and preparation are key to improving communication skills. I've learned to focus on storytelling when explaining technical concepts, making them more accessible to diverse audiences. Each presentation opportunity has contributed to my growth as a communicator and future professional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Plans Section -->
+    <section id="future">
+        <div class="container">
+            <div class="section-title">
+                <h2>Future Plans</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>2025</h3>
+                        <h4>Complete My Bachelor's Degree</h4>
+                        <p>Successfully graduate with my Computer Science degree with a focus on AI and machine learning. Complete a comprehensive capstone project that demonstrates my technical abilities and problem-solving skills.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>2025-2026</h3>
+                        <h4>Industry Experience</h4>
+                        <p>Secure a position at a technology company where I can apply my knowledge in real-world scenarios. Focus on building practical experience in software development while continuing to expand my skills in emerging technologies.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>2027-2028</h3>
+                        <h4>Advanced Education</h4>
+                        <p>Pursue a Master's degree in Computer Science with specialization in Artificial Intelligence or Data Science to deepen my knowledge and open doors for research opportunities.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>2029</h3>
+                        <h4>Tech Entrepreneurship</h4>
+                        <p>Launch a tech startup focused on innovative solutions in education technology or healthcare, applying my technical expertise to address significant societal challenges.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Long-term Vision</h3>
+                        <h4>Giving Back to the Community</h4>
+                        <p>Establish educational initiatives to help underrepresented groups access technology education. Mentor aspiring developers and contribute to open-source projects that benefit the global tech community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume">
+        <div class="container">
+            <div class="section-title">
+                <h2>Resume</h2>
+            </div>
+            <div class="resume-container">
+                <div class="resume-preview">
+                    <h3>Kurt Baron Macaranas</h3>
+                    <p class="text-center mb-4">Computer Science Student | Web Developer | AI Enthusiast</p>
+                    
+                    <div class="resume-section">
+                        <h4>EDUCATION</h4>
+                        <div class="resume-item">
+                            <div class="resume-item-header">
+                                <span class="resume-item-title">Bachelor of Science in Computer Science</span>
+                                <span>2022 - Present</span>
+                            </div>
+                            <div class="resume-item-subtitle">University of Technology</div>
+                            <ul>
+                                <li>GPA: 3.8/4.0</li>
+                                <li>Dean's List: 2022-2024</li>
+                                <li>Relevant Coursework: Data Structures, Algorithms, Database Systems, Web Development, Artificial Intelligence, Operating Systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <h4>TECHNICAL SKILLS</h4>
+                        <ul>
+                            <li><strong>Programming Languages:</strong> Python, Java, JavaScript, HTML/CSS, SQL</li>
+                            <li><strong>Frameworks & Libraries:</strong> React, Node.js, Express, Bootstrap, jQuery, TensorFlow</li>
+                            <li><strong>Tools & Platforms:</strong> Git, GitHub, VS Code, AWS, Firebase, Docker</li>
+                            <li><strong>Databases:</strong> MySQL, MongoDB, PostgreSQL</li>
+                            <li><strong>Other:</strong> Responsive Design, RESTful APIs, Agile Methodologies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <h4>PROJECTS</h4>
+                        <div class="resume-item">
+                            <div class="resume-item-header">
+                                <span class="resume-item-title">E-Learning Platform</span>
+                                <span>2024</span>
+                            </div>
+                            <ul>
+                                <li>Developed a comprehensive online learning platform with course management and student tracking</li>
+                                <li>Implemented user authentication, content delivery, and progress monitoring features</li>
+                                <li>Technologies: React, Node.js, MongoDB, Express</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="resume-item">
+                            <div class="resume-item-header">
+                                <span class="resume-item-title">Smart Home Automation System</span>
+                                <span>2023</span>
+                            </div>
+                            <ul>
+                                <li>Created an IoT-based system for remote control of home appliances</li>
+                                <li>Implemented scheduling features and energy usage monitoring</li>
+                                <li>Technologies: Python, Raspberry Pi, Flask, MQTT</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <h4>CERTIFICATIONS</h4>
+                        <ul>
+                            <li>AWS Certified Cloud Practitioner (April 2024)</li>
+                            <li>Microsoft Certified: Azure Fundamentals (December 2023)</li>
+                            <li>Responsive Web Design Certification - freeCodeCamp (October 2023)</li>
+                            <li>Python for Data Science - Coursera (July 2023)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <h4>EXTRACURRICULAR ACTIVITIES</h4>
+                        <div class="resume-item">
+                            <div class="resume-item-header">
+                                <span class="resume-item-title">Computer Science Society</span>
+                                <span>2022 - Present</span>
+                            </div>
+                            <div class="resume-item-subtitle">Technical Committee Member</div>
+                            <ul>
+                                <li>Organize workshops and technical sessions for students</li>
+                                <li>Contribute to the development of the society's website</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="resume-item">
+                            <div class="resume-item-header">
+                                <span class="resume-item-title">Hackathon Participant</span>
+                                <span>2023 - Present</span>
+                            </div>
+                            <ul>
+                                <li>Participated in multiple hackathons, including regional and national events</li>
+                                <li>3rd Place winner at the University Tech Challenge 2023</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="resume-download">
+                    <a href="#" class="btn" download>Download CV <i class="fas fa-download"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Me</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>Feel free to reach out to me for any inquiries, collaboration opportunities, or just to say hello! I'm always open to discussing new projects, creative ideas, or opportunities to be a part of your vision.</p>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Manila, Philippines</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>kurtbaron.macaranas@example.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+63 912 345 6789</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <h4>Website</h4>
+                            <p>www.kurtbaronmacaranas.com</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Me a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">KBM</div>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="footer-links">
+                    <a href="#hero">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Kurt Baron Macaranas. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            hamburger.classList.toggle('toggle');
+        });
+        
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                hamburger.classList.remove('toggle');
+                navLinks.classList.remove('nav-active');
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission - in a real scenario, this would be connected to a backend
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            // You would handle the form data here, e.g., sending it to a server
+            console.log('Form submitted:', formData);
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Show success message - in a real scenario
+            alert('Message sent successfully! I will get back to you soon.');
+        });
+    </script>
+</body>
+</html>
